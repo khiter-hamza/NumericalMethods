@@ -41,6 +41,26 @@ function [y] = Secant(r0, r1, fonc, n)
         end     
     end
 endfunction
+function [y] = Secant_Tabel(r0, r1, fonc, n)
+    function y = g(r0, r1)
+        y=r0-(r1-r0)/(fonc(r1)-fonc(r0)) *fonc(r0);
+    endfunction
+
+    if n==0 then
+        y=r0;
+    elseif n==1 then
+        y=r1;
+    else
+        disp(string(0)+" | "+string(r0)+" | "+string(r1)+" | "+string(abs(r0-r1)));
+        disp(string(1)+" | "+string(r1)+" | "+string(g(r0,r1))+" | "+string(abs(g(r0,r1)-r1)));
+        for i = [2:1:n]
+            y=g(r0,r1);
+            r0=r1;
+            r1=y;
+            disp(string(i)+" | "+string(y)+" | "+string(g(r0,r1))+" | "+string(abs(y-g(r0,r1))));
+        end     
+    end
+endfunction
 
 function [y,n] = Ostrowski(f, df, x0, e)
     function y = Ost(x)
