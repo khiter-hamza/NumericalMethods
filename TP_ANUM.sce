@@ -39,13 +39,13 @@ function [y] = Secant_Tabel(r0, r1, fonc, n)
     elseif n==1 then
         y=r1;
     else
-        disp(string(0)+" | "+string(r0)+" | "+string(r1)+" | "+string(abs(r0-r1)));Colone=[Colone;abs(r0-r1)];
-        disp(string(1)+" | "+string(r1)+" | "+string(g(r0,r1))+" | "+string(abs(g(r0,r1)-r1)));Colone=[Colone;abs(g(r0,r1)-r1)];
+        disp(string(0)+" | "+string(r0)+" | "+string(r1)+" | "+string(abs(r0-r1)));Colone=[Colone;log10(abs(r0-r1))];
+        disp(string(1)+" | "+string(r1)+" | "+string(g(r0,r1))+" | "+string(abs(g(r0,r1)-r1)));Colone=[Colone;log10(abs(g(r0,r1)-r1))];
         for i = [2:1:n]
             y=g(r0,r1);
             r0=r1;
             r1=y;
-            disp(string(i)+" | "+string(y)+" | "+string(g(r0,r1))+" | "+string(abs(y-g(r0,r1))));Colone=[Colone;abs(g(r0,r1)-y)];
+            disp(string(i)+" | "+string(y)+" | "+string(g(r0,r1))+" | "+string(abs(y-g(r0,r1))));Colone=[Colone;log10(abs(g(r0,r1)-y))];
         end     
     end
 
