@@ -48,23 +48,38 @@ function [y] = Secant_Tabel(r0, r1, fonc, n)
     endfunction
 
     Colone=[];
+    DISTANS=[];
+    XN=[r0,r1];
     if n==0 then
         y=r0;
     elseif n==1 then
         y=r1;
     else
         disp(string(0)+" | "+string(r0)+" | "+string(r1)+" | "+string(abs(r0-r1)));Colone=[Colone;log10(abs(r0-r1))];
+        DISTANS=[DISTANS;abs(r0-r1)];
         disp(string(1)+" | "+string(r1)+" | "+string(g(r0,r1))+" | "+string(abs(g(r0,r1)-r1)));Colone=[Colone;log10(abs(g(r0,r1)-r1))];
+        DISTANS=[DISTANS;abs(g(r0,r1)-r1)];
         for i = [2:1:n]
             y=g(r0,r1);
             r0=r1;
             r1=y;
             disp(string(i)+" | "+string(y)+" | "+string(g(r0,r1))+" | "+string(abs(y-g(r0,r1))));Colone=[Colone;log10(abs(g(r0,r1)-y))];
+            DISTANS=[DISTANS;abs(g(r0,r1)-y)];
+            XN=[XN,y];
         end     
     end
 
     Line=[0:1:n];
     plot(Line,Colone)
+
+    disp(string(0)+" | "+string(r0)+" | "+string(DISTANS(1))+" | //////// | //////// | //////// ");
+    disp(string(1)+" | "+string(r1)+" | "+string(DISTANS(2))+" | "+string(DISTANS(2)/DISTANS(1))+" | "+string(log(DISTANS(2)/DISTANS(1)))+" | //////// ");
+    rnp=DISTANS(2)/DISTANS(1);
+    for i = [2:1:n]
+        rn=DISTANS(i+1)/DISTANS(i);
+        disp(string(i)+" | "+string(XN(i+1))+" | "+string(DISTANS(i+1))+" | "+string(rn)+" | "+string(log(rn))+" |  "+string(log(rn)/log(rnp)));
+        rnp=rn;
+    end
 endfunction
 
 function [y,n] = Ostrowski(f, df, x0, e)
