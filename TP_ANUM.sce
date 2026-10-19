@@ -10,6 +10,20 @@ function [y,n] = Nweton(f, df, x0, e)
     end
 endfunction
 
+function [y,n] = Nweton_table(f, df, x0,n)
+    function z = g(x)
+        z=x-(f(x)/df(x));
+    endfunction
+    k=0;
+    y=x0;
+    while k <> n then
+
+        disp(string(k)+"|"+string(y)+"|"+string(f(y))+"|"+string(abs(g(y)-y)));
+        k=k+1;
+        y=g(y);
+    end
+endfunction
+
 function [y] = Secant(r0, r1, fonc, n)
     function y = g(r0, r1)
         y=r0-(r1-r0)/(fonc(r1)-fonc(r0)) *fonc(r0);
@@ -58,6 +72,9 @@ x0=input("Enter X0 : ");
 e=input("Enter the tolerance : ");
 [y,n]=Nweton(F, dF, x0, e);
 disp("The result is : ( "+string(y)+" ) of order : "+string(n));
+n=input("Enter the order for newton table: ");
+disp(" the result of newton method table : ");
+[y,n]=Nweton_table(F,dF,x0,n);
 disp("For Secant method");
 r0=input("Enter R0 : ");
 r1=input("Enter R1 : ");
@@ -69,3 +86,9 @@ x0=input("Enter X0 : ");
 e=input("Enter the tolerance : ");
 [y,n]=Ostrowski(F, dF, x0, e);
 disp("The result is : ( "+string(y)+" ) of order : "+string(n));
+
+
+
+
+
+
